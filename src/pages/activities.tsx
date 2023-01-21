@@ -1,12 +1,22 @@
 import Link from 'next/link'
 import styles from '../../styles/Home.module.css'
-
-import { Button, Box, ListItem, ListSubheader, Typography, ListItemButton, ListItemText, Stack, ListItemAvatar, List } from '@mui/material'
+import React from 'react';
+import { Button, Box, Collapse, Grid, ListItemIcon, ListItem, ListSubheader, Typography, ListItemButton, ListItemText, Stack, ListItemAvatar, List } from '@mui/material'
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 import {LocationOn, ExpandLess, ExpandMore} from '@mui/icons-material';
 
 import CustomHead from '../components/customhead'
 import CustomFooter from '../components/customfooter'
 import { useEffect, useState } from 'react'
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 interface RawData {
   name: string;
@@ -90,31 +100,51 @@ export default function Home() {
         }}>
           <h2>{rec.name}</h2>
           <List>{rec.activities.map((ac,i)=>(
-            <ListItemButton onClick={()=>handleClick(i)}>
-              {ac.open?<ExpandLess/>:<ExpandMore/>}
-              <ListItemText
-              primary={ac.place}
-              secondary={<Typography sx={{
-                overflow:'hidden',
-                whiteSpace:'nowrap',
-                textOverflow:'ellipsis',
-                color: 'text.secondary'
-              }}>{`メンバー：${ac.members.join(', ')}`}</Typography>}
-              />
-              <ListItemText
-              primary={<Typography
-              sx={{
-                display: 'inline',
-                float: 'right'
-              }}
-              >{
-                `${ac.date.getFullYear()}/${ac.date.getMonth()}/${ac.date.getDate()}`
-                }</Typography>
-              }
-              />
-            </ListItemButton>
+            <React.Fragment key={i}>
+              <ListItemButton onClick={()=>handleClick(i)}>
+                {ac.open?<ExpandLess/>:<ExpandMore/>}
+                <ListItemText
+                primary={ac.place}
+                secondary={ac.open?'':<Typography sx={{
+                  overflow:'hidden',
+                  whiteSpace:'nowrap',
+                  textOverflow:'ellipsis',
+                  color: 'text.secondary'
+                }}>{`メンバー：${ac.members.join(', ')}`}</Typography>}
+                />
+                <ListItemText
+                primary={<Typography
+                sx={{
+                  display: 'inline',
+                  float: 'right'
+                }}
+                >{
+                  `${ac.date.getFullYear()}/${ac.date.getMonth()}/${ac.date.getDate()}`
+                  }</Typography>
+                }
+                />
+              </ListItemButton>
+              <Collapse
+                in={ac.open}
+                sx={{pl:4, pr:4}}
+                timeout="auto"
+                unmountOnExit
+              >
+                <Stack>
+                  <h4>メモ</h4>
+                  <p>{ac.misc}</p>
+                  <h4>メンバー</h4>
+                  <Grid container spacing={0.5}>
+                    {ac.members.map((m,i)=>(
+                      <Grid item xs={4} key={i}>
+                        <Item>{m}</Item>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Stack>
+              </Collapse>
+            </React.Fragment>
           ))}</List>
-
         </Box>
 
       </main>
