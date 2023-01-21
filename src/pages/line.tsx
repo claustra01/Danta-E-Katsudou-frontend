@@ -17,14 +17,28 @@ const Line = () => {
 
     const token = await axios.post("https://api.line.me/oauth2/v2.1/token", params);
     console.log("token: ", token.data)
+    localStorage.setItem("access_token",token.data.id_token)
 
 
     // IDトークンの検証
     var params_second = new URLSearchParams()
-    params_second.append("id_token", token.data.id_token)
+    const access_token = localStorage.getItem("access_token")
+    if(!access_token){
+      console.log("accessTokenError")
+      return
+    }
+    params_second.append("id_token", access_token)
     params_second.append("client_id", process.env.NEXT_PUBLIC_CLIENT_ID as string)
     const userdata = await axios.post("https://api.line.me/oauth2/v2.1/verify", params_second);
     console.log("userdata: ", userdata.data)
+
+    const response = await axios.post("http://localhost:8000/api/users/auth", {
+      name: userdata.data.name,
+      picture: userdata.data.picture,
+      lineID: userdata.data.sub,
+    })
+    const data = await response.data
+    console.log(data)
   }
 
   return (
