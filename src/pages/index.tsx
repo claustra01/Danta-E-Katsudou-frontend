@@ -18,7 +18,7 @@ export default function Home() {
         </h1>
 
         <Link href="/login" passHref>
-          <Button variant="contained" style={{textTransform: 'none'}}>
+          <Button variant="contained" style={{textTransform: 'none', marginBottom:'30px'}}>
             Login
           </Button>
         </Link>
