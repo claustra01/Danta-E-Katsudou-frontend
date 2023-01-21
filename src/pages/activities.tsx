@@ -10,22 +10,16 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <CustomHead/>
-
+      
       <main className={styles.main}>
 
         <h1 className={styles.title}>
-          Main Page
+          Activities
         </h1>
 
-        <Link href="/login" passHref>
+        <Link href="/" passHref>
           <Button variant="contained" style={{textTransform: 'none'}}>
-            Login
-          </Button>
-        </Link>
-
-        <Link href="/activities" passHref>
-          <Button variant="contained" style={{textTransform: 'none'}}>
-            Activities
+            Back
           </Button>
         </Link>
 
