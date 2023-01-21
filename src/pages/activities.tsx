@@ -90,7 +90,7 @@ export default function Home() {
         }}>
           <h2>{rec.name}</h2>
           <List>{rec.activities.map((ac,i)=>(
-            <ListItemButton onClick={()=>handleClick(i)}>
+            <ListItemButton key={i} onClick={()=>handleClick(i)}>
               {ac.open?<ExpandLess/>:<ExpandMore/>}
               <ListItemText
               primary={ac.place}
