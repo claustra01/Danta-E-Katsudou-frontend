@@ -18,7 +18,7 @@ export default function Home() {
         </h1>
 
         <Link href="/" passHref>
-          <Button variant="contained">
+          <Button variant="contained" style={{textTransform: 'none'}}>
             Back
           </Button>
         </Link>
