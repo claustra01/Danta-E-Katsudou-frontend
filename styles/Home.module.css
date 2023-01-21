@@ -40,23 +40,9 @@
 }
 
 .title {
-
-text-align: center;
-position: absolute;
-width: 322px;
-height: 45px;
-top: 80px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 50px;
-line-height: 48px;
-
-
-color: #000000;
-
-
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
 }
 
 .title,
