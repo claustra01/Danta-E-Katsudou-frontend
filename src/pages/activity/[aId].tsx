@@ -2,6 +2,7 @@ import axios from 'axios'
 import { ServerURL } from '../../refs'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { Button, Grid } from '@mui/material'
 
 interface UserData {
   name: string
@@ -23,7 +24,7 @@ interface Record {
 interface Activity {
   id: string
   name: string
-  dateTime: string
+  dateTime: Date
   place: string
   misc: string
   createdAt: string
@@ -83,13 +84,15 @@ const Activity = () => {
 
   return (
     <div>
-      <h1>{activity?.name}</h1>
-      <h1>{activity?.place}</h1>
-      <h1>{activity?.dateTime}</h1>
-      <h1>{activity?.misc}</h1>
-      <button onClick={addMember}>参加する</button>
-      <br />
-      <button onClick={() => {router.push('/')}}>参加しない</button>
+      <h1>目的：{activity?.name}</h1>
+      <h1>場所：{activity?.place}</h1>
+      <h1>時間：{activity?.dateTime}</h1>
+      <h1>備考：{activity?.misc}</h1>
+
+      <Grid container>
+        <Button variant="contained" onClick={addMember}>参加する</Button>
+        <Button variant="contained" onClick={() => {router.push('/')}}>参加しない</Button>
+      </Grid>
     </div>
   )
 }
