@@ -98,16 +98,30 @@ export default function Home() {
       (async() => {
         const response1 = await axios.get(ServerURL + "/record/" + RecordId)
         setRawRecord(await response1.data as RawRecordData)
-        console.log('<rawRecord>');
-        console.log(rawRecord);
+        // console.log('<rawRecord>');
+        // console.log(rawRecord);
         const response2 = await axios.get(ServerURL + "/activitie/record/" + RecordId)
         setRawActivities(await response2.data as RawActivitiesData)
-        console.log('<rawActivities>');
-        console.log(rawActivities);
+        // console.log('<rawActivities>');
+        // console.log(rawActivities);
         // データの成形
-        setRec((()=>LoadRecord(rawRecord, rawActivities))());
+        if(rec.id !== rawRecord?.id){
+          let newRec = LoadRecord(rawRecord, rawActivities);
+          let mem: string[][] = [];
+          for (let i = 0; i < newRec.activities.length; i++) {
+            mem.push([]);
+            newRec.activities[i].members.forEach(async (m) => {
+              const response = await axios.get(ServerURL + "/users/" + m);
+              mem[i].push(response.data.name);
+            });
+          }
+          newRec.activities.forEach((ac,i)=>ac.members = mem[i]);
+          setRec(newRec);
+        }
       })()
-    }, [rawRecord===undefined, rawActivities===undefined])
+    // }, [rawRecord===undefined, rawActivities===undefined])
+    }, [rawRecord, rawActivities]);
+    // }, [])
     // }, [])
 
 
