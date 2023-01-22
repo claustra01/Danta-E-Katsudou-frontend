@@ -86,7 +86,7 @@ const Activity = () => {
     <div>
       <h1>目的：{activity?.name}</h1>
       <h1>場所：{activity?.place}</h1>
-      <h1>時間：{activity?.dateTime}</h1>
+      <h1>時間：{activity?.dateTime.toLocaleString()}</h1>
       <h1>備考：{activity?.misc}</h1>
 
       <Grid container>
