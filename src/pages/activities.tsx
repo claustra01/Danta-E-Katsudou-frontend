@@ -12,7 +12,7 @@ import CustomFooter from '../components/customfooter'
 import AddActivityModal from '../components/addactivitymodal';
 import { useEffect, useState } from 'react'
 import axios from 'axios';
-import { RecordId, ServerURL } from '../refs';
+import { RecordId, ServerURL, ClientURL } from '../refs';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -161,7 +161,7 @@ export default function Home() {
       dateTime: ac.date.toISOString(),
       place: ac.place,
       misc: ac.misc,
-      recordId: ac.recordId,
+      recordId: RecordId,
     })
     setRec(rc=>{
       if(!rc)return rc;
@@ -268,7 +268,7 @@ export default function Home() {
                       </Typography>
                       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         以下のURLを参加させたいメンバーに共有してください<br />
-                        <a href={`http://localhost:3000/activity/${ac.id}`}>http://localhost:3000/activity/{ac.id}</a>
+                        <a href={ClientURL+`/activity/${ac.id}`}>{ClientURL}/activity/{ac.id}</a>
                       </Typography>
                     </Box>
                   </Modal>
