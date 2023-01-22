@@ -257,3 +257,13 @@ function LoadRecord(rr?: RawRecordData, ra?: RawActivitiesData): RecordData{
   });
   return record;
 }
+
+  // UserIDをUserNameに変換
+  const uidToUname = async (m:string) => {
+    let n:string = "";
+    const response = await axios.get(ServerURL + "/users/" + m);
+    n = response.data.name;
+    console.log(n)
+    return n;
+  }
+
