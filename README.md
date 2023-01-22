@@ -29,4 +29,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy
 
-https://green-beach-0a9c51000.2.azurestaticapps.net/
+https://gray-ground-071c64d00.2.azurestaticapps.net
